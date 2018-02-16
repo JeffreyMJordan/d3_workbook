@@ -25,8 +25,12 @@ document.addEventListener('DOMContentLoaded', () => {
         .append("rect")
         .attr("class", "bar")
         .attr("x", function(d){return x(d.bucket)+5;})
+        .attr("width", x.bandwidth()-5)
+        .transition()
+        .delay(function(d){return d.bucket*20;})
+        .duration(800)
         .attr("y", function(d){return y(d.N) ;})
-        .attr("height", function(d){return height-pad-y(d.N);})
-        .attr("width", x.bandwidth()-5);
+        .attr("height", function(d){return height-pad-y(d.N);});
+
   });
 });
