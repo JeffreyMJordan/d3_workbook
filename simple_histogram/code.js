@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   let width = 900, height = 300, pad=20, left_pad=100;
-  let x = d3.scaleBand().range([left_pad, width-pad]).round(0.1);
+  let x = d3.scaleBand().range([left_pad, width-pad]).round(true).align(0.5);
   let y = d3.scaleLinear().range([height-pad, pad]);
   let xAxis = d3.axisBottom(x);
   let yAxis = d3.axisLeft(y);
@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
         .enter()
         .append("rect")
         .attr("class", "bar")
-        .attr("x", function(d){return x(d.bucket)+5;})
+        .attr("x", function(d){return x(d.bucket)+2.5;})
         .attr("width", x.bandwidth()-5)
         .transition()
         .delay(function(d){return d.bucket*20;})
