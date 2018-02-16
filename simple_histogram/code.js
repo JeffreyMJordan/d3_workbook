@@ -12,11 +12,21 @@ document.addEventListener('DOMContentLoaded', () => {
     data = d3.keys(jsonData).map((key) => {
       return {bucket: parseInt(key), N: jsonData[key]};
     });
-    console.log(data);
+
     x.domain(data.map((el) => el.bucket));
     y.domain([0, d3.max(data, function(d){return d.N;})]);
 
     svg.append("g").attr("class", "axis").attr("transform", "translate(0, "+(height-pad) + ")").call(xAxis);
     svg.append("g").attr("class", "axis").attr("transform", "translate("+(left_pad -pad) + ", 0)").call(yAxis);
+
+    svg.selectAll("rect")
+        .data(data)
+        .enter()
+        .append("rect")
+        .attr("class", "bar")
+        .attr("x", function(d){return x(d.bucket)+5;})
+        .attr("y", function(d){return y(d.N) ;})
+        .attr("height", function(d){return height-pad-y(d.N);})
+        .attr("width", x.bandwidth()-5);
   });
 });
